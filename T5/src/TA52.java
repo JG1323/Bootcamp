@@ -11,7 +11,7 @@ public class TA52 {
 		sc.close();
 
 		
-		System.out.println("Bienvenido" + name.toUpperCase());
+		System.out.println("Bienvenido " + name.toUpperCase());
 			
 	}
 
