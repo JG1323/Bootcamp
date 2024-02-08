@@ -31,7 +31,7 @@ public class TA5Clave {
 				
 			scanner.close();
 			}
-			}
+		}
 			
 	}
 }
