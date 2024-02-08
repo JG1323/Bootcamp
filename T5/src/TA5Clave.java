@@ -22,7 +22,17 @@ public class TA5Clave {
 			
 			if (contraseñaIngresada.equals(contraseñaCorrecta)){ 
 				System.out.println("Contraseña aceptada");
-		}
+				break;
+			} else {
+				intentos--;
+				System.out.println("Contraseña incorrecta. Itentos restantes:" + intentos);
+			if (intentos ==0) {
+				System.out.println("Has agotado todos los intentos. Acceso denegado");
+				
+			scanner.close();
+			}
+			}
+			
 	}
 }
 }
