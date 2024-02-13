@@ -27,7 +27,7 @@ public class TA5Clave {
 				intentos--;
 				System.out.println("Contraseña incorrecta. Itentos restantes:" + intentos);
 			if (intentos ==0) {
-				System.out.println("Has agotado todos los intentos. Acceso denegado");
+				System.out.println("Has agotado todos los intentos.  Acceso denegado");
 				
 			scanner.close();
 			}

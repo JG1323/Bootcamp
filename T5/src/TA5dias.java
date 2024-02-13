@@ -1,9 +1,16 @@
+import javax.swing.JOptionPane;
 
 public class TA5dias {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		
+		String semana= ("Introduce dia de la semana");
+		
+		semana= JOptionPane.showInputDialog(""+ "Introduce dia de la semana");
+		
+		semana= semana.toLowerCase();
+				
 			String dia="Lunes";
 	
 		switch (dia){
