@@ -3,9 +3,10 @@ public class TA5ejercicio4 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		 Scanner scanner = new Scanner(System.in);
+		
+		Scanner scanner = new Scanner(System.in);
 
-	        System.out.print("Ingrese el radio del círculo: ");
+	        System.out.print("Pon el radio del círculo: ");
 	        double radio = Double.parseDouble(scanner.nextLine());
 
 	        double area = Math.PI * Math.pow(radio, 2);
@@ -14,6 +15,7 @@ public class TA5ejercicio4 {
 	        System.out.println("El área del círculo es: " + area);
 
 	        scanner.close();
+	        
 	}
 
 }
