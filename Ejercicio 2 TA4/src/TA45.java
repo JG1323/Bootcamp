@@ -4,7 +4,9 @@ public class TA45 {
 		// TODO Auto-generated method stub
 		   public static void main(String[] args) {
 		        // TODO Auto-generated method stub
-		        int A = 98;
+		      
+			   
+			   int A = 98;
 		        int B = 21;
 		        int C = 65;
 		        int D = 47;
@@ -30,6 +32,8 @@ public class TA45 {
 		        System.out.println("El valor B es ahora  " + B);
 		        System.out.println("El valor C es ahora " + C);
 		        System.out.println("El valor D es ahora " + D);
+		        
+		        
 		    }
 
 		

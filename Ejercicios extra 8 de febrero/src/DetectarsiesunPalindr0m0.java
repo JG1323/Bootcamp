@@ -5,7 +5,7 @@ public class DetectarsiesunPalindr0m0 {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-	String palin="zorra, arroz";
+	String palin="zorra-arroz";
 		
 		Scanner scanner= new Scanner(System.in);
 		
