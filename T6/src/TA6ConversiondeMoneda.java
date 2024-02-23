@@ -18,7 +18,7 @@ public class TA6ConversiondeMoneda {
                 break;
          
             default:
-                System.out.println("Moneda no válida. Por favor ingrese dolares, yenes o libras.");
+                System.out.println("Moneda incorrecta. Pon dolares, yenes o libras.");
                 return;
         }
         
