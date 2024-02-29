@@ -5,10 +5,10 @@ public class TA6ejercicio11 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Scanner scanner = new Scanner(System.in);
+		Scanner Scanner = new Scanner(System.in);
 
 		System.out.print("Ingrese la dimensión de los arrays: ");
-		int dimension = scanner.nextInt();
+		int dimension = Scanner.nextInt();
 
 		int[] array1 = new int[dimension];
 		int[] array2 = new int[dimension];
