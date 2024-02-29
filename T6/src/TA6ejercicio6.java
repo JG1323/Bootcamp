@@ -1,9 +1,10 @@
-
+import java.util.Random;
+import java.util.Scanner;
 public class TA6ejercicio6 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		 public static void main(String[] args) {
+		 
 		        Scanner scanner = new Scanner(System.in);
 
 		       
