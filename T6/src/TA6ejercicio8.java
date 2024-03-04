@@ -7,7 +7,7 @@ public class TA6ejercicio8 {
 
 		int matri[] = new int[10];
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Dame un valor");
+		System.out.println("Dame un valor:");
 
 	
 		 

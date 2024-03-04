@@ -5,7 +5,7 @@ public class TA6jercicio5 {
 		// TODO Auto-generated method stub
 		
 		 Scanner sc= new Scanner(System.in); 
-	        System.out.println("Introduce un número");  
+	        System.out.println("Introduce un número:");  
 	        String num = sc.nextLine();
 	        
 	        int numero =Integer.parseInt(num);

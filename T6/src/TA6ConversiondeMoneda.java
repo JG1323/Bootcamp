@@ -1,10 +1,18 @@
+import java.util.Scanner;
 
 public class TA6ConversiondeMoneda {
 	public static void main(String[] args) {
-		double euros = 10;
+		 Scanner Scanner= new Scanner(System.in); 
+		 
+	        System.out.println("Introduce la cantidad que quieres convertir:");  
+	        int dolares = Scanner.nextInt();
+	        
+	        double euros = 10;
 		String monedaDestino = "dolares";
 
 		convertirMoneda(euros, monedaDestino);
+		
+		Scanner.close();
 	}
 
 	public static void convertirMoneda(double euros, String monedaDestino) {
@@ -25,4 +33,5 @@ public class TA6ConversiondeMoneda {
 		double cantidadConvertida = euros * tasaConversion;
 		System.out.println(euros + " euros equivale a " + cantidadConvertida + " " + nombreMoneda + ".");
 	}
+
 }

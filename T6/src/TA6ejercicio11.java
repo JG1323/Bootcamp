@@ -7,7 +7,7 @@ public class TA6ejercicio11 {
 		// TODO Auto-generated method stub
 		Scanner Scanner = new Scanner(System.in);
 
-		System.out.print("Ingrese la dimensión de los arrays: ");
+		System.out.print("Pon la dimensión de los arrays: ");
 		int dimension = Scanner.nextInt();
 
 		int[] array1 = new int[dimension];
@@ -31,6 +31,8 @@ public class TA6ejercicio11 {
 
 		System.out.println("Resultado de la multiplicación:");
 		mostrarArray(resultado);
+		
+		Scanner.close();
 	}
 
 	public static void rellenarConAleatorios(int[] array) {
