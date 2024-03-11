@@ -1,13 +1,13 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
-public class T7ejercicio2 {
+public class CajaSupermercado {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
-		Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
         List<Producto> carrito = new ArrayList<>();
 
@@ -82,7 +82,5 @@ public class T7ejercicio2 {
         public double hetPrecio() {
             return precio;
         }
-	
-		
-	}
-	    }
+    }
+}
