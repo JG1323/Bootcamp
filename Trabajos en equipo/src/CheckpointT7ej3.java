@@ -2,7 +2,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-
 public class CheckpointT7ej3 {
 
 	public static void main(String[] args) {
@@ -12,7 +11,7 @@ public class CheckpointT7ej3 {
 
 		Map<String, Map<String, Object>> productosMap = new HashMap<>();
 		Map<String, Object> datosProductos = new HashMap<>();
-		baseDeDatos(productosMap, datosProductos);
+		baseDeDatos(productosMap);
 
 		System.out.println(productosMap);
 		System.out.println("Perfecto!");
@@ -30,11 +29,12 @@ public class CheckpointT7ej3 {
 
 			switch (opcion) {
 			case "1":
-				 anadirArticulo(productosMap, scanner);
+				anadirArticulo(productosMap, scanner);
 				System.out.println("1");
 
 				break;
 			case "2":
+				consultarArticulo(productosMap, scanner);
 				System.out.println("2");
 				break;
 			case "3":
@@ -46,88 +46,80 @@ public class CheckpointT7ej3 {
 				scanner.close();
 				System.exit(0);
 			default:
-					System.out.println("Opción no válida. Inténtelo de nuevo.");
+				System.out.println("Opción no válida. Inténtelo de nuevo.");
 
-					}
 			}
-					
-	}
-			
-			private static void anadirArticulo(Map<String, Map<String, Object>> productosMap, Scanner scanner) {
-			    System.out.print("Introduzca el nombre del nuevo producto: ");
-			    String nombreProducto = scanner.nextLine();
-
-			   
-			    if (productosMap.containsKey(nombreProducto)) {
-			        System.out.println("El producto ya existe en la base de datos.");
-			        return;
-			    }
-
-			    Map<String, Object> datosProducto = new HashMap<>();
-
-			    System.out.print("Introduzca la cantidad del producto: ");
-			    int cantidad = scanner.nextInt();
-			    scanner.nextLine(); 
-			    datosProducto.put("cantidad", cantidad);
-
-			    System.out.print("Introduzca el precio del producto: ");
-			    double precio = scanner.nextDouble();
-			    scanner.nextLine(); 
-			    datosProducto.put("precio", precio);
-
-			    productosMap.put(nombreProducto, datosProducto);
-
-			    System.out.println("Producto añadido correctamente.");
-		
 		}
-			public static void mostrarListaProductos(Map<String, Map<String, Object>> productosMap) {
-		        System.out.println("Lista de todos los productos:");
-		        for (Map.Entry<String, Map<String, Object>> entry : productosMap.entrySet()) {
-		            String producto = entry.getKey();
-		            Map<String, Object> datos = entry.getValue();
-		            int cantidad = (int) datos.get("cantidad");
-		            int precio = (int) datos.get("precio");
 
-		            System.out.println("Producto: " + producto + ", Cantidad: " + cantidad + ", Precio: €" + precio);
-		        }
-		    }
-		
-
-	private static void baseDeDatos(Map<String, Map<String, Object>> productosMap, Map<String, Object> datosProductos) {
-		datosProductos.put("cantidad", 1);
-		datosProductos.put("cantidad", 1);
-		datosProductos.put("cantidad", 1);
-		datosProductos.put("cantidad", 1);
-		datosProductos.put("cantidad", 1);
-		datosProductos.put("cantidad", 1);
-		datosProductos.put("cantidad", 1);
-		datosProductos.put("cantidad", 1);
-		datosProductos.put("cantidad", 1);
-		datosProductos.put("cantidad", 1);
-
-		datosProductos.put("precio", 1);
-		datosProductos.put("precio", 1);
-		datosProductos.put("precio", 1);
-		datosProductos.put("precio", 1);
-		datosProductos.put("precio", 1);
-		datosProductos.put("precio", 1);
-		datosProductos.put("precio", 1);
-		datosProductos.put("precio", 1);
-		datosProductos.put("precio", 1);
-		datosProductos.put("precio", 1);
-
-		productosMap.put("producto1", datosProductos);
-		productosMap.put("producto2", datosProductos);
-		productosMap.put("producto3", datosProductos);
-		productosMap.put("producto4", datosProductos);
-		productosMap.put("producto5", datosProductos);
-		productosMap.put("producto6", datosProductos);
-		productosMap.put("producto7", datosProductos);
-		productosMap.put("producto8", datosProductos);
-		productosMap.put("producto9", datosProductos);
-		productosMap.put("producto10", datosProductos);
-
-		
-		
 	}
+
+	private static void anadirArticulo(Map<String, Map<String, Object>> productosMap, Scanner scanner) {
+		System.out.print("Introduzca el nombre del nuevo producto: ");
+		String nombreProducto = scanner.nextLine();
+
+		if (productosMap.containsKey(nombreProducto)) {
+			System.out.println("El producto ya existe en la base de datos.");
+			return;
+		}
+
+		Map<String, Object> datosProducto = new HashMap<>();
+
+		System.out.print("Introduzca la cantidad del producto: ");
+		int cantidad = scanner.nextInt();
+		scanner.nextLine();
+		datosProducto.put("cantidad", cantidad);
+
+		System.out.print("Introduzca el precio del producto: ");
+		double precio = scanner.nextDouble();
+		scanner.nextLine();
+		datosProducto.put("precio", precio);
+
+		productosMap.put(nombreProducto, datosProducto);
+
+		System.out.println("Producto añadido correctamente.");
+
+	}
+
+	private static void consultarArticulo(Map<String, Map<String, Object>> productosMap, Scanner scanner) {
+		System.out.print("Introduzca el producto que este buscando: ");
+		String nombreProducto = scanner.nextLine();
+
+		if (!productosMap.containsKey(nombreProducto)) {
+			System.out.println("El producto no existe en la base de datos.");
+			return;
+		}
+		
+		Map<String, Object> datosProducto = productosMap.get(nombreProducto);
+		System.out.println("Nombre: " + nombreProducto);
+		System.out.println("Cantidad: " + datosProducto.get("cantidad"));
+		System.out.println("Precio: " + datosProducto.get("precio"));
+
+	}
+	
+	public static void mostrarListaProductos(Map<String, Map<String, Object>> productosMap) {
+        System.out.println("Lista de todos los productos:");
+        for (Map.Entry<String, Map<String, Object>> entry : productosMap.entrySet()) {
+            String producto = entry.getKey();
+            if (!producto.startsWith("producto")) {
+                Map<String, Object> datos = entry.getValue();
+                int cantidad = (int) datos.get("cantidad");
+                double precio = (double) datos.get("precio");
+
+                System.out.println("Producto: " + producto + ", Cantidad: " + cantidad + ", Precio: €" + precio);
+            }
+        }
+	}
+	public static void baseDeDatos(Map<String, Map<String, Object>> productosMap) {
+        Map<String, Object> datosProductos = new HashMap<>();
+
+        datosProductos.put("cantidad", 10);
+        datosProductos.put("precio", 10.5);
+        productosMap.put("producto1", datosProductos);
+
+        datosProductos = new HashMap<>();
+        datosProductos.put("cantidad", 5);
+        datosProductos.put("precio", 20.75);
+        productosMap.put("producto2", datosProductos);
+
+    }
 }
