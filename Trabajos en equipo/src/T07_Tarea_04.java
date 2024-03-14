@@ -190,6 +190,9 @@ public class T07_Tarea_04 {
 		case "2":
 			eliminarProductoAdmin(stockProductos);
 			break;
+		  case "3":
+              verModificarIVA();
+              break;
 		default:
 			JOptionPane.showMessageDialog(null, "Opción no válida. Inténtelo de nuevo.");
 		}
@@ -228,4 +231,25 @@ public class T07_Tarea_04 {
 			JOptionPane.showMessageDialog(null, "El producto no existe en la lista.");
 		}
 	}
+	private static void modificarIVAProducto(String nombreProducto) {
+        String nuevoIVA = JOptionPane.showInputDialog(null, "Ingrese el nuevo valor del IVA (en decimal):");
+        if (nuevoIVA == null) {
+            return;
+        }
+        try {
+            double nuevoValorIVA = Double.parseDouble(nuevoIVA);
+			stockProductos.get(nombreProducto).put("iva", nuevoValorIVA);
+            JOptionPane.showMessageDialog(null, "IVA del producto " + nombreProducto + " modificado correctamente.");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Valor de IVA no válido.");
+        }
+    }
+	private static void verificarStockBajo() {
+		   for (Map.Entry<String, Map<String, Object>> entry : stockProductos.entrySet()) {
+	            String producto = entry.getKey();
+	            int cantidad = (int) entry.getValue().get("cantidad");
+	            if (cantidad <= 3) {
+	                JOptionPane.showMessageDialog(null, "¡Stock bajo de " + producto + "! La cantidad es " + cantidad + ".");
+	            }
+	        }
 }
