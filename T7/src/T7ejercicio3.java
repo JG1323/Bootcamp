@@ -2,48 +2,8 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
 
-public class T07_Tarea_04 {
-	private static final String ADMIN_CONTRA = "centralcee";
-
-	public static void main(String[] args) {
-
-		Map<String, Map<String, Object>> stockProductos = new HashMap<>();
-		inicializarBaseDeDatos(stockProductos);
-
-		Map<String, Integer> carrito = new HashMap<>();
-
-		while (true) {
-			String opcion = JOptionPane.showInputDialog(null,
-					"---- Menú Principal ----\n" + "1. Ver lista de productos\n" + "2. Comprar producto\n"
-							+ "3. Realizar venta\n" + "4. Modo Administrador\n" + "5. Salir\n"
-							+ "Seleccione una opción:");
-
-			if (opcion == null) {
-
-				return;
-			}
-
-			switch (opcion) {
-			case "1":
-				listarProductos(stockProductos);
-				break;
-			case "2":
-				comprarProducto(stockProductos, carrito);
-				break;
-			case "3":
-				realizarVenta(stockProductos, carrito);
-				break;
-			case "4":
-				modoAdmin(stockProductos);
-				break;
-			case "5":
-				JOptionPane.showMessageDialog(null, "¡Hasta luego!");
-				return;
-			default:
-				JOptionPane.showMessageDialog(null, "Opción no válida. Inténtelo de nuevo.");
-			}
-		}
-	}
+public class T7ejercicio3 {
+	private static final Object ADMIN_CONTRA = "centralCee";
 
 	private static void inicializarBaseDeDatos(Map<String, Map<String, Object>> stockProductos) {
 

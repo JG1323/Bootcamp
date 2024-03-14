@@ -23,7 +23,7 @@ public class TA7ejercicio1 {
         HashMap<String, Double> diccionarioNotaMedia = new HashMap<>();
         diccionarioNotaMedia.put("Media", media);
 
-        System.out.println("Diccionario de nota media: " + diccionarioNotaMedia);
+        System.out.println("Nota media de todos los alumnos: " + diccionarioNotaMedia);
        
 	}
 
