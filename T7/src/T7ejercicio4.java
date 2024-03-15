@@ -1,226 +1,321 @@
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 public class T7ejercicio4 {
+	private static final String ADMIN_PASSWORD = "CentralCEE";
+
+	private static Map<String, Map<String, Object>> stockProductos = new HashMap<>();
+	private static Map<String, Integer> carrito = new HashMap<>();
+	private static Map<String, Integer> ventas = new HashMap<>();
+	private static double ivaPorDefecto = 0.21; 
 
 	public static void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
-
-		System.out.println("¿Qué desea utilizar?");
-		System.out.println("1. Caja del Supermercado");
-		System.out.println("2. Menú de Gestión de Productos");
-		System.out.print("Ingrese el número correspondiente a la opción que desea utilizar: ");
-
-		int opcion = scanner.nextInt();
-		scanner.nextLine();
-
-		if (opcion == 1) {
-			cajaSupermercado(scanner);
-		} else if (opcion == 2) {
-			usarMenuGestionProductos(scanner);
-		} else {
-			System.out.println("Opción no válida. Por favor, seleccione 1 o 2.");
-		}
-
-		scanner.close();
-	}
-
-	public static void cajaSupermercado(Scanner scanner) {
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Ha seleccionado utilizar la Caja del Supermercado.");
-		
-	}
-
-	public static void usarMenuGestionProductos(Scanner scanner) {
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Ha seleccionado utilizar el Menú de Gestión de Productos.");
-
-	}
-
-	public static void cajaSupermercado(String[] args) {
-		Scanner scanner = new Scanner(System.in);
-
-		List<Producto> carrito = new ArrayList<>();
-
-		String nombreProducto;
-		double cantidad, precio;
-
-		do {
-			System.out.print("Ingrese el nombre del producto (o 'fin' para finalizar): ");
-			nombreProducto = scanner.nextLine();
-
-			if (!nombreProducto.equalsIgnoreCase("fin")) {
-				System.out.print("Ingrese la cantidad del producto '" + nombreProducto + "': ");
-				cantidad = scanner.nextDouble();
-
-				System.out.print("Ingrese el precio unitario del producto '" + nombreProducto + "': ");
-				precio = scanner.nextDouble();
-				scanner.nextLine();
-
-				carrito.add(new Producto(nombreProducto, cantidad, precio));
-			}
-		} while (!nombreProducto.equalsIgnoreCase("fin"));
-
-		System.out.print("Ingrese el porcentaje de IVA a aplicar (4 o 21): ");
-		int porcentajeIVA = scanner.nextInt();
-
-		if (porcentajeIVA != 4 && porcentajeIVA != 21) {
-			System.out.println("Error: Porcentaje de IVA no válido. Se aplicará el 21% por defecto.");
-			porcentajeIVA = 21;
-		}
-
-		double iva = porcentajeIVA / 100.0;
-		double precioTotalBruto = calcularPrecioTotal(carrito);
-		double precioTotalConIVA = precioTotalBruto * (1 + iva);
-
-		System.out.println("\nInformación de la Venta:");
-		System.out.println("IVA Aplicado: " + porcentajeIVA + "%");
-		System.out.println("Precio Total Bruto: " + precioTotalBruto + " €");
-		System.out.println("Precio Total con IVA: " + precioTotalConIVA + " €");
-		System.out.println("Número de Artículos Comprados: " + carrito.size());
-
-		System.out.print("Ingrese la cantidad pagada por el cliente: ");
-		double cantidadPagada = scanner.nextDouble();
-
-		double cambio = cantidadPagada - precioTotalConIVA;
-		System.out.println("Cambio a Devolver: " + cambio + " €");
-
-		scanner.close();
-	}
-
-		// Parte del código del segundo archivo
-		
-		public static void usarMenuGestionProductos(String[] args) {
-		Map<String, Map<String, Object>> productosMap = new HashMap<>();
-		baseDeDatos(productosMap);
-		
-		Scanner scanner = new Scanner(System.in);
+		inicializarBaseDeDatos();
 
 		while (true) {
-			System.out.println("\n---- Menú Principal ----");
-			System.out.println("\n--- Que Quieres Hacer? ---");
-			System.out.println("1. Añadir artículo");
-			System.out.println("2. Consultar artículo");
-			System.out.println("3. Listar todos los artículos");
-			System.out.println("4. Salir");
-			System.out.print("Seleccione una opción: ");
+			String opcion = JOptionPane.showInputDialog(null,
+					"---- Menú Principal ----\n" + "1. Ver lista de productos (con IVA)\n" + "2. Comprar producto\n"
+							+ "3. Realizar venta\n" + "4. Modo Administrador\n" + "5. Salir\n"
+							+ "Seleccione una opción:");
 
-			String opcion = scanner.nextLine();
+			if (opcion == null) {
+				return;
+			}
 
 			switch (opcion) {
 			case "1":
-				anadirArticulo(productosMap, scanner);
+				listarProductos();
 				break;
 			case "2":
-				consultarArticulo(productosMap, scanner);
+				comprarProducto();
 				break;
 			case "3":
-				mostrarListaProductos(productosMap);
+				realizarVenta();
 				break;
 			case "4":
-				System.out.println("¡Hasta luego!");
-				System.exit(0);
+				modoAdmin();
+				break;
+			case "5":
+				JOptionPane.showMessageDialog(null, "¡Hasta luego!");
+				return;
 			default:
-				System.out.println("Opción no válida. Inténtelo de nuevo.");
+				JOptionPane.showMessageDialog(null, "Opción no válida. Inténtelo de nuevo.");
+			}
+
+			verificarStockBajo();
+		}
+	}
+
+	private static void inicializarBaseDeDatos() {
+		agregarProducto(stockProductos, "Manzanas", 20, 2.5, ivaPorDefecto);
+		agregarProducto(stockProductos, "Plátanos", 15, 1.8, ivaPorDefecto);
+		agregarProducto(stockProductos, "Leche", 30, 1.2, ivaPorDefecto);
+		agregarProducto(stockProductos, "Pan", 25, 0.9, ivaPorDefecto);
+		agregarProducto(stockProductos, "Huevos", 40, 3.0, ivaPorDefecto);
+		agregarProducto(stockProductos, "Arroz", 50, 1.5, ivaPorDefecto);
+		agregarProducto(stockProductos, "Aceite", 35, 2.8, ivaPorDefecto);
+		agregarProducto(stockProductos, "Azúcar", 45, 1.0, ivaPorDefecto);
+		agregarProducto(stockProductos, "Sal", 40, 0.8, ivaPorDefecto);
+		agregarProducto(stockProductos, "Café", 20, 4.0, ivaPorDefecto);
+	
+	}
+
+	private static void comprarProducto() {
+		String nombreProducto = JOptionPane.showInputDialog(null, "Ingrese el nombre del producto que desea comprar:");
+		if (nombreProducto == null) {
+			return;
+		}
+
+		if (!stockProductos.containsKey(nombreProducto)) {
+			JOptionPane.showMessageDialog(null, "Producto no encontrado.");
+			return;
+		}
+
+		Map<String, Object> productoInfo = stockProductos.get(nombreProducto);
+		int cantidadDisponible = (int) productoInfo.get("cantidad");
+
+		String cantidadCompraStr = JOptionPane.showInputDialog(null, "Ingrese la cantidad que desea comprar:");
+		if (cantidadCompraStr == null) {
+			return;
+		}
+		int cantidadCompra;
+		try {
+			cantidadCompra = Integer.parseInt(cantidadCompraStr);
+		} catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(null, "Cantidad no válida.");
+			return;
+		}
+
+		if (cantidadCompra <= 0 || cantidadCompra > cantidadDisponible) {
+			JOptionPane.showMessageDialog(null, "Cantidad no válida o insuficiente stock.");
+			return;
+		}
+
+		carrito.put(nombreProducto, carrito.getOrDefault(nombreProducto, 0) + cantidadCompra);
+		JOptionPane.showMessageDialog(null, "Producto agregado al carrito.");
+	}
+
+	private static void realizarVenta() {
+		if (carrito.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "El carrito está vacío. No se puede realizar la venta.");
+			return;
+		}
+
+		double totalVenta = 0.0;
+		for (Map.Entry<String, Integer> entry : carrito.entrySet()) {
+			String nombreProducto = entry.getKey();
+			int cantidadCompra = entry.getValue();
+			Map<String, Object> productoInfo = stockProductos.get(nombreProducto);
+			double precio = (double) productoInfo.get("precio");
+			totalVenta += precio * cantidadCompra;
+			int cantidadDisponible = (int) productoInfo.get("cantidad");
+			productoInfo.put("cantidad", cantidadDisponible - cantidadCompra); // Descuenta el stock
+		}
+
+		JOptionPane.showMessageDialog(null, "Total a pagar: " + totalVenta);
+
+		String cantidadPagadaStr = JOptionPane.showInputDialog(null, "Ingrese la cantidad pagada por el cliente:");
+		if (cantidadPagadaStr == null) {
+			return;
+		}
+		double cantidadPagada;
+		try {
+			cantidadPagada = Double.parseDouble(cantidadPagadaStr);
+		} catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(null, "Cantidad no válida.");
+			return;
+		}
+
+		double cambio = cantidadPagada - totalVenta;
+		if (cambio >= 0) {
+			JOptionPane.showMessageDialog(null, "Cambio a devolver: " + cambio);
+			carrito.clear();
+			actualizarRegistroVentas();
+		} else {
+			JOptionPane.showMessageDialog(null, "Cantidad insuficiente. Venta cancelada.");
+		}
+	}
+
+	private static void actualizarRegistroVentas() {
+		// TODO Auto-generated method stub
+
+	}
+
+	private static void modoAdmin() {
+		String password = JOptionPane.showInputDialog(null, "Ingrese la contraseña de administrador:");
+		if (password == null || !password.equals(ADMIN_PASSWORD)) {
+			JOptionPane.showMessageDialog(null, "Contraseña incorrecta. No tiene acceso al modo administrador.");
+			return;
+		}
+
+		while (true) {
+			String opcion = JOptionPane.showInputDialog(null,
+					"---- Modo Administrador ----\n" + "1. Ver total de productos\n" + "2. Editar lista de productos\n"
+							+ "3. Ver/Modificar IVA aplicado a los productos\n" + "4. Salir del modo administrador\n"
+							+ "Seleccione una opción:");
+			if (opcion == null) {
+				return;
+			}
+
+			switch (opcion) {
+			case "1":
+				listarProductos();
+				break;
+			case "2":
+				editarProductos();
+				break;
+			case "3":
+				verModificarIVA();
+				break;
+			case "4":
+				return;
+			default:
+				JOptionPane.showMessageDialog(null, "Opción no válida. Inténtelo de nuevo.");
 			}
 		}
 	}
 
-	private static double calcularPrecioTotal(List<Producto> carrito) {
-		double precioTotal = 0;
-		for (Producto producto : carrito) {
-			precioTotal += producto.getCantidad() * producto.getPrecio();
-		}
-		return precioTotal;
-	}
-
-	private static class Producto {
-		private String nombre;
-		private double cantidad;
-		private double precio;
-
-		public Producto(String nombre, double cantidad, double precio) {
-			this.nombre = nombre;
-			this.cantidad = cantidad;
-			this.precio = precio;
-		}
-
-		public double getCantidad() {
-			return cantidad;
-		}
-
-		public double getPrecio() {
-			return precio;
-		}
-	}
-
-	public static void baseDeDatos(Map<String, Map<String, Object>> productosMap) {
-		Map<String, Object> datosProductos = new HashMap<>();
-
-		datosProductos.put("cantidad", 10);
-		datosProductos.put("precio", 10.5);
-		productosMap.put("producto1", datosProductos);
-
-		datosProductos = new HashMap<>();
-		datosProductos.put("cantidad", 5);
-		datosProductos.put("precio", 20.75);
-		productosMap.put("producto2", datosProductos);
-
-	}
-
-	private static void consultarArticulo(Map<String, Map<String, Object>> productosMap, Scanner scanner) {
-		System.out.print("Introduzca el producto que este buscando: ");
-		String nombreProducto = scanner.nextLine();
-
-		if (!productosMap.containsKey(nombreProducto)) {
-			System.out.println("El producto no existe en la base de datos.");
+	private static void verModificarIVA() {
+		String nombreProducto = JOptionPane.showInputDialog(null, "Ingrese el nombre del producto:");
+		if (nombreProducto == null || !stockProductos.containsKey(nombreProducto)) {
+			JOptionPane.showMessageDialog(null, "Producto no encontrado.");
 			return;
 		}
 
+		String opcion = JOptionPane.showInputDialog(null, "---- IVA Aplicado al Producto ----\n"
+				+ "1. Ver IVA aplicado\n" + "2. Modificar IVA\n" + "Seleccione una opción:");
+
+		if (opcion == null) {
+			return;
+		}
+
+		switch (opcion) {
+		case "1":
+			double ivaProducto = (double) stockProductos.get(nombreProducto).get("iva");
+			JOptionPane.showMessageDialog(null,
+					"El IVA aplicado al producto " + nombreProducto + " es: " + (ivaProducto * 100) + "%");
+			break;
+		case "2":
+			modificarIVAProducto(nombreProducto);
+			break;
+		default:
+			JOptionPane.showMessageDialog(null, "Opción no válida. Inténtelo de nuevo.");
+		}
 	}
 
-	public static void mostrarListaProductos(Map<String, Map<String, Object>> productosMap) {
-		System.out.println("Lista de todos los productos:");
-		for (Map.Entry<String, Map<String, Object>> entry : productosMap.entrySet()) {
+	private static void modificarIVAProducto(String nombreProducto) {
+		String nuevoIVA = JOptionPane.showInputDialog(null, "Ingrese el nuevo valor del IVA (en decimal):");
+		if (nuevoIVA == null) {
+			return;
+		}
+		try {
+			double nuevoValorIVA = Double.parseDouble(nuevoIVA);
+			stockProductos.get(nombreProducto).put("iva", nuevoValorIVA);
+			JOptionPane.showMessageDialog(null, "IVA del producto " + nombreProducto + " modificado correctamente.");
+		} catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(null, "Valor de IVA no válido.");
+		}
+	}
+
+	private static void editarProductos() {
+		String opcion = JOptionPane.showInputDialog(null, "--- Editar lista de productos ---\n"
+				+ "1. Agregar producto\n" + "2. Eliminar producto\n" + "Seleccione una opción:");
+		if (opcion == null) {
+			return;
+		}
+
+		switch (opcion) {
+		case "1":
+			agregarProductoAdmin();
+			break;
+		case "2":
+			eliminarProductoAdmin();
+			break;
+		default:
+			JOptionPane.showMessageDialog(null, "Opción no válida. Inténtelo de nuevo.");
+		}
+	}
+
+	private static void agregarProductoAdmin() {
+		String nombre = JOptionPane.showInputDialog(null, "Ingrese el nombre del nuevo producto:");
+		if (nombre == null) {
+			return; 
+		}
+		String cantidadStr = JOptionPane.showInputDialog(null, "Ingrese la cantidad del nuevo producto:");
+		if (cantidadStr == null) {
+			return; 
+		}
+		int cantidad;
+		try {
+			cantidad = Integer.parseInt(cantidadStr);
+		} catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(null, "Cantidad no válida.");
+			return;
+		}
+		String precioStr = JOptionPane.showInputDialog(null, "Ingrese el precio del nuevo producto:");
+		if (precioStr == null) {
+			return;
+		}
+		double precio;
+		try {
+			precio = Double.parseDouble(precioStr);
+		} catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(null, "Precio no válido.");
+			return;
+		}
+		agregarProducto(stockProductos, nombre, cantidad, precio, ivaPorDefecto);
+		JOptionPane.showMessageDialog(null, "Producto agregado correctamente.");
+	}
+
+	private static void agregarProducto(Map<String, Map<String, Object>> stockProductos2, String nombre, int cantidad,
+			double precio, double ivaPorDefecto) {
+		Map<String, Object> productoInfo = new HashMap<>();
+		productoInfo.put("cantidad", cantidad);
+		productoInfo.put("precio", precio);
+		productoInfo.put("iva", ivaPorDefecto);
+		stockProductos.put(nombre, productoInfo);
+	}
+
+	private static void eliminarProductoAdmin() {
+		String nombre = JOptionPane.showInputDialog(null, "Ingrese el nombre del producto que desea eliminar:");
+		if (nombre == null) {
+			return;
+		}
+		if (stockProductos.containsKey(nombre)) {
+			stockProductos.remove(nombre);
+			JOptionPane.showMessageDialog(null, "Producto eliminado correctamente.");
+		} else {
+			JOptionPane.showMessageDialog(null, "El producto no existe en la lista.");
+		}
+	}
+
+	private static void verificarStockBajo() {
+		for (Map.Entry<String, Map<String, Object>> entry : stockProductos.entrySet()) {
 			String producto = entry.getKey();
-			if (!producto.startsWith("producto")) {
-				Map<String, Object> datos = entry.getValue();
-				int cantidad = (int) datos.get("cantidad");
-				double precio = (double) datos.get("precio");
-
-				System.out.println("Producto: " + producto + ", Cantidad: " + cantidad + ", Precio: €" + precio);
+			int cantidad = (int) entry.getValue().get("cantidad");
+			if (cantidad <= 3) {
+				JOptionPane.showMessageDialog(null,
+						"¡Stock bajo de " + producto + "! La cantidad es " + cantidad + ".");
 			}
 		}
 	}
 
-	private static void anadirArticulo(Map<String, Map<String, Object>> productosMap, Scanner scanner) {
-		System.out.print("Introduzca el nombre del nuevo producto: ");
-		String nombreProducto = scanner.nextLine();
-
-		if (productosMap.containsKey(nombreProducto)) {
-			System.out.println("El producto ya existe en la base de datos.");
-			return;
+	private static void listarProductos() {
+		StringBuilder listaProductos = new StringBuilder();
+		listaProductos.append("--- Productos Disponibles ---\n");
+		for (Map.Entry<String, Map<String, Object>> entry : stockProductos.entrySet()) {
+			String nombreProducto = entry.getKey();
+			Map<String, Object> productoInfo = entry.getValue();
+			int cantidad = (int) productoInfo.get("cantidad");
+			double precio = (double) productoInfo.get("precio");
+			double iva = (double) productoInfo.get("iva");
+			double precioConIVA = precio * (1 + iva); // Calcular precio con IVA
+			listaProductos.append(nombreProducto).append(" - Cantidad: ").append(cantidad).append(", Precio con IVA: €")
+					.append(String.format("%.2f", precioConIVA)).append("\n");
 		}
-
-		Map<String, Object> datosProducto = new HashMap<>();
-
-		System.out.print("Introduzca la cantidad del producto: ");
-		int cantidad = scanner.nextInt();
-		scanner.nextLine();
-		datosProducto.put("cantidad", cantidad);
-
-		System.out.print("Introduzca el precio del producto: ");
-		double precio = scanner.nextDouble();
-		scanner.nextLine();
-		datosProducto.put("precio", precio);
-
-		productosMap.put(nombreProducto, datosProducto);
-
-		System.out.println("Producto añadido correctamente.");
+		JOptionPane.showMessageDialog(null, listaProductos.toString());
 
 	}
 }
