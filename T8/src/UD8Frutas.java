@@ -1,5 +1,5 @@
 
-public class UD8Ejemplo {
+public class UD8Frutas {
 	
 	//Atributos
 	
@@ -11,7 +11,7 @@ public class UD8Ejemplo {
 	
 	//Constructor 
 	
-	public  Frutas {
+	public  UD8Frutas() {
 		
 	this.nombre = "";
 	

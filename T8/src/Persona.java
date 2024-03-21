@@ -44,7 +44,7 @@ public class Persona {
 // Método privado para generar un DNI aleatorio
 	private String generarDNI() {
 
-//    / DNI aleatorio
+//    DNI aleatorio
 		return "49679537C";
 	}
 
@@ -78,18 +78,24 @@ public class Persona {
 
 	public double getPeso() {
 		return peso;
-	}
+}
 
 	public void setPeso(double peso) {
 		this.peso = peso;
 	}
 
 	public double getAltura() {
-		return altura;
+	return altura;
+
 	}
 
 	public void setAltura(double altura) {
 		this.altura = altura;
+	}
+
+	@Override
+	public String toString() {
+		return "Persona{" + "nombre='" + nombre + '\'' + ", edad=" + edad + ", sexo='" + sexo + '\'' + '}';
 	}
 
 }
