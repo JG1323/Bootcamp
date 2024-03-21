@@ -16,7 +16,7 @@ public class Electrodomestico {
 	    private String consumoEnergetico;
 	    private double peso;
 
-	    // Constructores
+	   
 	    public Electrodomestico() {
 	        this(PRECIO_BASE_DEFECTO, PESO_DEFECTO, COLOR_DEFECTO, CONSUMO_ENERGETICO_DEFECTO);
 	    }
@@ -32,7 +32,7 @@ public class Electrodomestico {
 	        this.peso = peso;
 	    }
 
-	    // Métodos para validación
+	    
 	    private String validarColor(String color) {
 	        String colorValidado = color.toLowerCase();
 	        if (COLORES_DISPONIBLES.contains(colorValidado)) {
