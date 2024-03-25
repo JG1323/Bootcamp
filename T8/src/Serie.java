@@ -81,7 +81,8 @@ public class Serie {
     }
 
     // Método toString para imprimir los detalles de la serie
-    @Override
+    
+  
     public String toString() {
         return "Título: " + titulo +
                 "\nNúmero de temporadas: " + temporadas +
