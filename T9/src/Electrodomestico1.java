@@ -1,15 +1,18 @@
+import java.util.Arrays;
+import java.util.List;
+
 public class Electrodomestico1 {
     protected double precioBase;
     protected String color;
     protected char consumoEnergetico;
     protected double peso;
 
-    protected static final String[] COLORES_DISPONIBLES = {"blanco", "negro", "rojo", "azul", "gris"};
+    protected static final List<String> COLORES_DISPONIBLES = Arrays.asList("blanco", "negro", "rojo", "azul", "gris");
     protected static final char[] CONSUMOS_ENERGETICOS = {'A', 'B', 'C', 'D', 'E', 'F'};
     protected static final double PRECIO_BASE_DEFECTO = 100.0;
     protected static final String COLOR_DEFECTO = "blanco";
     protected static final char CONSUMO_ENERGETICO_DEFECTO = 'F';
-    protected static final double PESO_DEFECTO = 5.0;
+    protected static final double PESO_DEFECTO = 5;
 
     public Electrodomestico1() {
         this.precioBase = PRECIO_BASE_DEFECTO;
