@@ -10,7 +10,7 @@ public class Ej2Serie {
 	private String creador;
 		
 	
-	public Ej2Serie() {
+	public Ej2Serie(String string, int i, String string2, String string3) {
 
 		this.titulo = "";
 		this.numerotemporadas = 3;
