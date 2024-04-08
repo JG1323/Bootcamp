@@ -9,7 +9,7 @@ import javax.swing.*;
 
 public class ProyectoJJI {
 
-    private static final String ADMIN_PASSWORD = "CajaR";
+    private static final String ADMIN_PASSWORD = "CentralCEE";
     private static Map<String, Map<String, Object>> stockProductos = new HashMap<>();
     private static Map<String, Integer> carrito = new HashMap<>();
     private static Map<String, Integer> ventas = new HashMap<>();
