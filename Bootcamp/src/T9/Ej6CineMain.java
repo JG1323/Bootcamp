@@ -2,6 +2,7 @@ package T9;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 public class Ej6CineMain {
 
@@ -9,14 +10,14 @@ public class Ej6CineMain {
 
     public static void main(String[] args) {
 
-        Asiento[][] asientos = new Asiento[8][9];
+        Ej6Asientos[][] asientos = new Ej6Asientos[8][9];
         for (int i = 0; i < asientos.length; i++) {
             for (int j = 0; j < asientos[i].length; j++) {
-                asientos[i][j] = new Asiento(i, j);
+                asientos[i][j] = new Ej6Asientos(i, j);
             }
         }
 
-        Pelicula pelicula = generarPeliculaAleatoria();
+        Ej6Pelicula pelicula = generarPeliculaAleatoria();
         System.out.println("Película en proyección:");
         System.out.println("Título: " + pelicula.getTitulo());
         System.out.println("Duración: " + pelicula.getDuracion() + " minutos");
@@ -57,7 +58,7 @@ public class Ej6CineMain {
 
     }
 
-    public static Pelicula generarPeliculaAleatoria() {
+    public static Ej6Pelicula generarPeliculaAleatoria() {
         Random random = new Random();
         String[] titulos = { "El señor de los anillos", "Titanic", "La La Land", "El Padrino", "Matrix" };
         String[] directores = { "Peter Jackson", "James Cameron", "Damien Chazelle", "Francis Ford Coppola",
@@ -67,7 +68,7 @@ public class Ej6CineMain {
 
         int indice = random.nextInt(titulos.length);
 
-        return new Pelicula(titulos[indice], duraciones[indice], edadesMinimas[indice], directores[indice]);
+        return new Ej6Pelicula(titulos[indice], duraciones[indice], edadesMinimas[indice], directores[indice]);
     }
 
     public static ArrayList<Espectador> generarEspectadoresAleatorios(int cantidad) {
@@ -93,7 +94,7 @@ public class Ej6CineMain {
         return espectadores;
     }
 
-    public static int contarAsientosOcupados(Asiento[][] asientos) {
+    public static int contarAsientosOcupados(Ej6Asientos[][] asientos) {
         int asientosOcupados = 0;
         for (int i = 0; i < asientos.length; i++) {
             for (int j = 0; j < asientos[i].length; j++) {

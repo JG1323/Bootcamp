@@ -18,7 +18,7 @@ public class Ej5Aula {
         this.numEstudiantes = 0;
     }
 
-    // Método para añadir un estudiante al aula
+   
     public void agregarEstudiante(Ej5Estudiante estudiante) {
         if (numEstudiantes < capacidadMaxima) {
             estudiantes[numEstudiantes++] = estudiante;
@@ -27,19 +27,19 @@ public class Ej5Aula {
         }
     }
 
-    // Método para verificar si se puede dar clase en el aula
+   
     public boolean puedeDarClase() {
-        // Verificar disponibilidad del profesor
+       
         if (!profesor.estaDisponible()) {
             return false;
         }
 
-        // Verificar si el profesor da la asignatura correspondiente
+      
         if (!profesor.getMateria().equalsIgnoreCase(asignatura)) {
             return false;
         }
 
-        // Verificar si hay más del 50% de estudiantes
+     
         int numAsistentes = 0;
         for (Ej5Estudiante estudiante : estudiantes) {
             if (estudiante != null && !estudiante.haceNovillos()) {
@@ -49,7 +49,7 @@ public class Ej5Aula {
         return numAsistentes > (capacidadMaxima / 2);
     }
 
-    // Método para contar estudiantes aprobados
+   
     public void contarEstudiantesAprobados() {
         int numAprobadosHombres = 0;
         int numAprobadasMujeres = 0;
