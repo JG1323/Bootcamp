@@ -1,3 +1,4 @@
+package T19;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,7 +16,7 @@ public class Calculator extends JFrame implements ActionListener {
     }
 
     private void createUI() {
-        this.setTitle("Calculadora Espacial");
+        this.setTitle("Calculadora");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
         
