@@ -25,7 +25,6 @@ public class Encuesta extends JFrame {
 
     private void agregarComponentes() {
     	
-        // Grupo de botones de radio para el sistema operativo
         JLabel osLabel = new JLabel("Elije un sistema operativo:");
         add(osLabel);
         
@@ -42,7 +41,6 @@ public class Encuesta extends JFrame {
         add(linuxButton);
         add(macButton);
 
-        // Checkboxes para la especialidad
         JLabel specialtyLabel = new JLabel("Elije tu especialidad:");
         add(specialtyLabel);
 
@@ -54,7 +52,6 @@ public class Encuesta extends JFrame {
         add(disenoCheck);
         add(administracionCheck);
 
-        // Slider para las horas dedicadas en el ordenador
         JLabel horasLabel = new JLabel("Horas dedicadas en el ordenador:");
         add(horasLabel);
 
@@ -65,7 +62,6 @@ public class Encuesta extends JFrame {
 
         add(horasSlider);
 
-        // Botón para enviar los datos
         botonEnviar = new JButton("Enviar");
         botonEnviar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
