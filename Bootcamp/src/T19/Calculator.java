@@ -22,10 +22,10 @@ public class Calculator extends JFrame implements ActionListener {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
         
-        // Agregar un título en la parte superior de la calculadora
+       
         JLabel titleLabel = new JLabel("Calculadora Simple", SwingConstants.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
-        this.add(titleLabel, BorderLayout.NORTH); // Agrega el título en la parte norte
+        this.add(titleLabel, BorderLayout.NORTH); 
 
         inputScreen = new JTextField();
         inputScreen.setEditable(false);
@@ -69,7 +69,7 @@ public class Calculator extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
-    @Override
+   
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
         if ("0123456789".contains(command)) {
