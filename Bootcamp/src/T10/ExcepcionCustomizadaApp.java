@@ -8,13 +8,13 @@ public class ExcepcionCustomizadaApp {
 
 		while (!excepcionCapturada) {
 			try {
-				System.out.println("Mensaje mostrado por pantalla.");
+				System.out.println("Texto mostrado por pantalla.");
 				throw new ExcepcionCustomizada("Esto es un objeto Excepcion.");
 			} catch (ExcepcionCustomizada e) {
-				System.out.println("Se capturó la excepción: " + e.getMensaje());
+				System.out.println("Excepcion capturada por texto: " + e.getMensaje());
 				excepcionCapturada = true;	
 			} finally {
-				System.out.println("Programa terminado.");
+				System.out.println("Fin.");
 			}
 		}
 	}
