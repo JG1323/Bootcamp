@@ -19,19 +19,31 @@ public class MemoryGame extends JFrame implements ActionListener {
     private JButton secondButton;
     private Timer timer;
     private String playerName;
-    private int pairsFound; 
+    private int pairsFound;  // Contador de pares encontrados
+    private JLabel statusLabel;
     
     public MemoryGame() {
         playerName = getPlayerName();
         setTitle("MemoryGame - Gamertag: " + playerName);
-        setSize(800, 800);
+        setSize(800, 900);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new GridLayout(rows, cols));
+        setLayout(new BorderLayout());
+        
+        statusLabel = new JLabel("Pares encontrados: 0");
+        statusLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        statusLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        add(statusLabel, BorderLayout.NORTH);
+        
+        JPanel gamePanel = new JPanel(new GridLayout(rows, cols, 10, 10));
+        gamePanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        gamePanel.setBackground(new Color(173, 216, 230));
         
         panels = new JPanel[rows][cols];
         cardLayouts = new CardLayout[rows][cols];
         shuffledNames = getShuffledNames();
-        initializePanels();
+        initializePanels(gamePanel);
+        
+        add(gamePanel, BorderLayout.CENTER);
         
         timer = new Timer(1000, e -> {
             flipBack(firstButton);
@@ -60,7 +72,7 @@ public class MemoryGame extends JFrame implements ActionListener {
         return list.toArray(new String[0]);
     }
     
-    private void initializePanels() {
+    private void initializePanels(JPanel gamePanel) {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 cardLayouts[i][j] = new CardLayout();
@@ -69,13 +81,17 @@ public class MemoryGame extends JFrame implements ActionListener {
                 JButton button = new JButton("?");
                 button.addActionListener(this);
                 button.setActionCommand(shuffledNames[i * cols + j]);
-                button.setName(i + "," + j);  
+                button.setName(i + "," + j);  // Store the position of the button
+                button.setFont(new Font("Arial", Font.BOLD, 36));
+                button.setBackground(new Color(240, 128, 128));
+                button.setForeground(Color.WHITE);
                 panels[i][j].add(button, "back");
                 
                 JLabel label = new JLabel(shuffledNames[i * cols + j], SwingConstants.CENTER);
+                label.setFont(new Font("Arial", Font.BOLD, 36));
                 panels[i][j].add(label, "front");
                 
-                add(panels[i][j]);
+                gamePanel.add(panels[i][j]);
             }
         }
     }
@@ -96,14 +112,15 @@ public class MemoryGame extends JFrame implements ActionListener {
             if (!firstButton.getActionCommand().equals(secondButton.getActionCommand())) {
                 timer.start();
             } else {
-                // Las dos  Los dos nombres coinciden, se queda girada la carta 
+                // Las dos cartas coinciden, dejarlas descubiertas
                 firstButton.setEnabled(false);
                 secondButton.setEnabled(false);
                 firstButton = null;
                 secondButton = null;
                 pairsFound++;
+                statusLabel.setText("Pares encontrados: " + pairsFound);
                 if (pairsFound == (rows * cols) / 2) {
-                    // Todas las cartas se han encontrado
+                    // Todas las parejas han sido encontradas
                     JOptionPane.showMessageDialog(this, "¡Felicidades " + playerName + "! Has encontrado todas las parejas.");
                 }
             }
