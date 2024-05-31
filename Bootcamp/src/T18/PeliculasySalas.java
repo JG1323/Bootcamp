@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class PeliculasySalas {
+	
 	private static final String URL = "jdbc:mysql://localhost:3306/peliculas_y_salas?useTimezone=true&serverTimezone=UTC";
 	private static final String USER = "root";
 	private static final String PASSWORD = "";
