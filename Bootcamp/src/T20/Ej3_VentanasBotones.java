@@ -1,7 +1,6 @@
 package T20;
 
 import javax.swing.*;
-
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -11,15 +10,19 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class Ej3_VentanasBotones {
+	
 	public static void main (String[] args) {
+		
 		JFrame frame = new JFrame("Ventana con más Interacción");
 		frame.setMinimumSize(new java.awt.Dimension(300, 200));
 
 	 // Crear un panel para añadir componentes
+		
         JPanel panel = new JPanel(new GridBagLayout());
         frame.add(panel);
         
         // Crear restricciones para el GridBagLayout
+        
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -49,11 +52,13 @@ public class Ej3_VentanasBotones {
         panel.add(messageLabel1, gbc);
         
 	    // Contadores de clics
+        
         final int[] count1 = {0};
         final int[] count2 = {0};
 
 
 	 // Añadir action listeners a los botones
+        
 	    button1.addActionListener(new ActionListener() {
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
@@ -70,9 +75,9 @@ public class Ej3_VentanasBotones {
 	        }
 	    });
 
-	    // Hacer visible la ventana
-	    frame.setSize(400, 300); // Tamaño inicial de la ventana
-	    frame.setLocationRelativeTo(null); // Centrar la ventana en la pantalla
+	    
+	    frame.setSize(400, 300); 
+	    frame.setLocationRelativeTo(null); 
 	    frame.setVisible(true);
 	} 
-	}
+}

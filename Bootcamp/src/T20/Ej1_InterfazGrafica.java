@@ -8,6 +8,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class Ej1_InterfazGrafica {
+	
 	public static void main(String[] args) {
 		// Crear la ventana principal
 		JFrame frame = new JFrame("Aplicación con Interfaz Gráfica");
@@ -34,9 +35,9 @@ public class Ej1_InterfazGrafica {
 			}
 		});
 
-		// Hacer visible la ventana
-		frame.setSize(400, 300); // Tamaño inicial de la ventana
-		frame.setLocationRelativeTo(null); // Centrar la ventana en la pantalla
+		
+		frame.setSize(400, 300); 
+		frame.setLocationRelativeTo(null); 
 		frame.setVisible(true);
 	}
 }

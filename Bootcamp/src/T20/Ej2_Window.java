@@ -7,6 +7,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class Ej2_Window {
+	
 	public static void main (String[] args) {
 	JFrame frame = new JFrame("Ventana con Interacción");
 	frame.setMinimumSize(new java.awt.Dimension(300, 200));
