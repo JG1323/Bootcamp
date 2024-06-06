@@ -44,13 +44,14 @@ public class CalculadoraCientifica extends JFrame implements ActionListener {
         buttonPanel.setLayout(new GridLayout(7, 5, 5, 5));
 
         String[] buttons = {
-            "MC", "MR", "M+", "M-", "MS",
-            "sin", "cos", "tan", "log", "ln",
-            "√", "x²", "1/x", "CE", "/",
-            "7", "8", "9", "*", "%",
-            "4", "5", "6", "-", "xʸ",
-            "1", "2", "3", "+", "exp",
-            "±", "0", ".", "="
+        		"MC", "MR", "M+", "M-", "MS",
+        		"sin", "cos", "tan", "tt", "log",
+        		"ln", "√", "x²", "1/x", "CE",
+        		"7", "8", "9", "/", "%",
+        		"4", "5", "6", "*", "^",
+        		"1", "2", "3", "-", "exp",
+        		"±", "0", ".", "(", ")",
+        		"←", "="
         };
 
         for (String b : buttons) {
@@ -73,12 +74,7 @@ public class CalculadoraCientifica extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
         if ("0123456789".contains(command)) {
-            if (startNumber) {
-                inputScreen.setText(command);
-            } else {
-                inputScreen.setText(inputScreen.getText() + command);
-            }
-            startNumber = false;
+            inputScreen.setText(inputScreen.getText() + command);
         } else {
             switch (command) {
                 case "+":
@@ -86,6 +82,7 @@ public class CalculadoraCientifica extends JFrame implements ActionListener {
                 case "*":
                 case "/":
                 case "%":
+                case "^":
                     num1 = inputScreen.getText();
                     op = command;
                     startNumber = true;
@@ -153,6 +150,13 @@ public class CalculadoraCientifica extends JFrame implements ActionListener {
                     inputScreen.setText(String.valueOf(tanResult));
                     startNumber = true;
                     break;
+                case "tt":
+                    double ttValue = Double.parseDouble(inputScreen.getText());
+                    double ttResult = Math.toRadians(ttValue);
+                    historyArea.append("tt(" + ttValue + ") = " + ttResult + "\n");
+                    inputScreen.setText(String.valueOf(ttResult));
+                    startNumber = true;
+                    break;
                 case "log":
                     double logValue = Double.parseDouble(inputScreen.getText());
                     double logResult = Math.log10(logValue);
@@ -165,11 +169,6 @@ public class CalculadoraCientifica extends JFrame implements ActionListener {
                     double lnResult = Math.log(lnValue);
                     historyArea.append("ln(" + lnValue + ") = " + lnResult + "\n");
                     inputScreen.setText(String.valueOf(lnResult));
-                    startNumber = true;
-                    break;
-                case "xʸ":
-                    num1 = inputScreen.getText();
-                    op = "^";
                     startNumber = true;
                     break;
                 case "exp":
@@ -188,7 +187,6 @@ public class CalculadoraCientifica extends JFrame implements ActionListener {
                     break;
                 case "MR":
                     inputScreen.setText(String.valueOf(memory));
-                    startNumber = true;
                     break;
                 case "M+":
                     memory += Double.parseDouble(inputScreen.getText());
@@ -198,6 +196,17 @@ public class CalculadoraCientifica extends JFrame implements ActionListener {
                     break;
                 case "MS":
                     memory = Double.parseDouble(inputScreen.getText());
+                    break;
+                case ".":
+                    if (!inputScreen.getText().contains(".")) {
+                        inputScreen.setText(inputScreen.getText() + ".");
+                    }
+                    break;
+                case "←":
+                    String currentText = inputScreen.getText();
+                    if (currentText.length() > 0) {
+                        inputScreen.setText(currentText.substring(0, currentText.length() - 1));
+                    }
                     break;
             }
         }
@@ -220,7 +229,6 @@ public class CalculadoraCientifica extends JFrame implements ActionListener {
                     result = num1 / num2;
                 } else {
                     inputScreen.setText("Error");
-                    return 0;
                 }
                 break;
             case "%":
@@ -237,3 +245,4 @@ public class CalculadoraCientifica extends JFrame implements ActionListener {
         SwingUtilities.invokeLater(CalculadoraCientifica::new);
     }
 }
+
