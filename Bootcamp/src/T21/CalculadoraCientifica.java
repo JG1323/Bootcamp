@@ -245,4 +245,3 @@ public class CalculadoraCientifica extends JFrame implements ActionListener {
         SwingUtilities.invokeLater(CalculadoraCientifica::new);
     }
 }
-
