@@ -5,6 +5,7 @@ public class Video {
     private String title;
     private String director;
     private int cliId;
+    
 	public String getTitle() {
 		// TODO Auto-generated method stub
 		return null;
@@ -31,6 +32,10 @@ public class Video {
 	}
 	public void setDirector(String string) {
 		// TODO Auto-generated method stub
+		
+	}
+	public void setCliId(int int1) {
+		
 		
 	}
 
