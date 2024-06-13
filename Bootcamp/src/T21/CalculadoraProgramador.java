@@ -7,10 +7,10 @@ package T21;
 
 	public class CalculadoraProgramador extends JFrame implements ActionListener {
 
-	    private JTextField inputField;
-	    private JLabel resultLabel;
+	    JTextField inputField;
+	    JLabel resultLabel;
 	    private String currentOperation = "";
-	    private int base = 10;
+	    int base = 10;
 
 	    public CalculadoraProgramador() {
 	        createUI();
@@ -106,42 +106,45 @@ package T21;
 	        }
 	    }
 
-	    private void calculateResult() {
+	    void calculateResult() {
 	        try {
 	            String[] tokens = inputField.getText().split(" ");
-	            if (tokens.length == 3) {
-	                long num1 = Long.parseLong(tokens[0], base);
-	                long num2 = Long.parseLong(tokens[2], base);
-	                long result = 0;
-
-	                switch (tokens[1]) {
-	                    case "+":
-	                        result = num1 + num2;
-	                        break;
-	                    case "-":
-	                        result = num1 - num2;
-	                        break;
-	                    case "*":
-	                        result = num1 * num2;
-	                        break;
-	                    case "/":
-	                        if (num2 != 0) {
-	                            result = num1 / num2;
-	                        } else {
-	                            resultLabel.setText("Error: División por cero");
-	                            return;
-	                        }
-	                        break;
-	                }
-
-	                resultLabel.setText("Resultado: " + Long.toString(result, base).toUpperCase());
+	            if (tokens.length != 3) {
+	                throw new IllegalArgumentException("Entrada inválida");
 	            }
+
+	            long num1 = Long.parseLong(tokens[0], base);
+	            long num2 = Long.parseLong(tokens[2], base);
+	            long result = 0;
+
+	            switch (tokens[1]) {
+	                case "+":
+	                    result = num1 + num2;
+	                    break;
+	                case "-":
+	                    result = num1 - num2;
+	                    break;
+	                case "*":
+	                    result = num1 * num2;
+	                    break;
+	                case "/":
+	                    if (num2 != 0) {
+	                        result = num1 / num2;
+	                    } else {
+	                        resultLabel.setText("Error: División por cero");
+	                        return;
+	                    }
+	                    break;
+	                default:
+	                    throw new IllegalArgumentException("Operación inválida");
+	            }
+
+	            resultLabel.setText("Resultado: " + Long.toString(result, base).toUpperCase());
 	        } catch (Exception ex) {
 	            resultLabel.setText("Error: Entrada inválida");
 	        }
 	    }
-
-	    private void updateBase() {
+	    void updateBase() {
 	        try {
 	            long value = Long.parseLong(inputField.getText(), base);
 	            inputField.setText(Long.toString(value, base).toUpperCase());

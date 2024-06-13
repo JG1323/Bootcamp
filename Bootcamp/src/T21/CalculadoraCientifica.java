@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 
 public class CalculadoraCientifica extends JFrame implements ActionListener {
 
-    private JTextField inputScreen;
+    JTextField inputScreen;
     private JTextArea historyArea;
     private String num1 = "";
     private String op = "";
@@ -212,7 +212,7 @@ public class CalculadoraCientifica extends JFrame implements ActionListener {
         }
     }
 
-    private double calculate(double num1, double num2, String op) {
+    public double calculate(double num1, double num2, String op) {
         double result = 0;
         switch (op) {
             case "+":

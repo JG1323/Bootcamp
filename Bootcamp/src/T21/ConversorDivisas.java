@@ -15,6 +15,7 @@ public class ConversorDivisas extends JFrame implements ActionListener {
     }
 
     private void createUI() {
+    	
         setTitle("Conversor de Divisas");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
@@ -27,7 +28,7 @@ public class ConversorDivisas extends JFrame implements ActionListener {
         panel.add(titleLabel);
 
         inputField = new JTextField(10);
-        inputField.setEditable(false);  // No editable para obligar a usar los botones
+        inputField.setEditable(false);  
         panel.add(inputField);
 
         JPanel buttonPanel = new JPanel(new GridLayout(4, 3, 5, 5));
@@ -70,19 +71,23 @@ public class ConversorDivisas extends JFrame implements ActionListener {
         String command = e.getActionCommand();
         if (command.equals("Convertir")) {
             String input = inputField.getText();
-            try {
-                double amount = Double.parseDouble(input);
-                double euros, dollars;
-                dollars = amount * 1.17; // Suponiendo una tasa de conversión de 1 dólar = 0.85 euros
-                euros = amount * 0.85; // Suponiendo una tasa de conversión de 1 euro = 1.17 dólares
-                resultLabel.setText(String.format("%.2f dólares = %.2f euros     %.2f euros = %.2f dólares", amount, euros, amount, dollars));
-            } catch (NumberFormatException ex) {
-                resultLabel.setText("¡Ingrese un número válido!");
-            }
+            String result = convertCurrency(input);
+            resultLabel.setText(result);
         } else if (command.equals("C")) {
             inputField.setText("");
         } else {
             inputField.setText(inputField.getText() + command);
+        }
+    }
+
+    public String convertCurrency(String input) {
+        try {
+            double amount = Double.parseDouble(input);
+            double euros = amount * 0.85; 
+            double dollars = amount * 1.17; 
+            return String.format("%.2f dólares = %.2f euros     %.2f euros = %.2f dólares", amount, euros, amount, dollars);
+        } catch (NumberFormatException ex) {
+            return "¡Ingrese un número válido!";
         }
     }
 
